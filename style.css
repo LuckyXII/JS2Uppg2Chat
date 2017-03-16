@@ -1,33 +1,248 @@
-*{
-    border: 1px solid black;
-}
+
 body, html{
     margin: 0;
-    padding 0;
+    padding: 0;
+}
+
+main{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height:90vh;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: flex-start;
+}
+
+#chatContainer{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    background-color: #EEE;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 0;
 }
 
 #chat{
-    display: inline-block;
-    height:100vh;
-    width: 70%;
-    margin: auto;
-    z-index: 1;
+    display:block;
+    height:100%;
+    width: 70vw;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(30,30,30,0.8);
+    -ms-flex-negative: 2;
+    flex-shrink: 3;
 }
 
-#sideBar{
+.message{
+    width: 100%;
+    height:auto;
+    color: white;
+    height: 74px;
+    
+    
+}
+.messageInfo{
+    width:auto;
+    margin:0;
+    background-color: rgba(240,240,240,0.7);
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: black;
+}
+
+.profilePic{
     display: inline-block;
-    top: 0;
-    right: 0;
+    border-radius: 100%;
+    width:20px;
+    height: 20px;
+    background-color: deepskyblue;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.messageOthers{
+    display: inline-block;
+    
+}
+.messageOthers p{
+    background-color: rebeccapurple;
+    padding: 5px;
+    border-radius: 10px;
+    margin:0; 
+    border: 1px solid #252525;
+    box-shadow: 5px 5px 5px rgba(25,25,25,0.5);
+}
+
+.messageMine{
+    
+}
+
+.messageRating{
+    height: 25px;
+    margin-top: 3px;
+}
+.messageRating p{
+    height: 15px;
+}
+.messageRating , .messageRating p{
+    color:black;
+    background-color: rgba(25,25,25,0);
+    border: none;
+    box-shadow: none;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.negRate, .posRate{
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#sidebar{
+    position: relative;
+    display: inline-block;
+    top:0;
+    right:0;
     height: 100%;
     width: 250px;
+    min-width: 250px;
+    float: right;
+    box-shadow: -4px 0px 10px rgba(30,30,30,0.3);
+    background-color: #303030;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+}
+#sidebar h2{
+    color: white;
+    font-family: "lobster";
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
+#sidebar form{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+#sidebar input,button{
+    margin-top: 5px;
+    height: 25px;
+}
+
+#sidebar input{
+    width: 90%;
+    border-radius: 1px;
+   
+}
+#sidebar button{
+    width: 91%;
+    border-radius: 5px;
+    
+}
+
+online p{
+    color: white;
+    background-color: #314c7b;
+    border: 1px solid #252525;
+    height: 30px;
+    text-align: center;
+    font-family: "lobster";
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+
+#online{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+#online input{
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
 footer{
-    position: fixed;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-top: 2px solid #252525;
+    position: relative;
     z-index: 5;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 9.8vh;
     font-family: "lobster";
     text-align: center;
+    background-color: #314c7b;
+    color: white;
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
+}
+
+footer h1{
+    margin:auto;
+}
+
+/**************************MEDIA QUERIES ***********************/
+
+@media screen and (max-width: 835px){
+    #chat{
+        width:100%;
+    }
 }
