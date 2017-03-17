@@ -32,6 +32,14 @@ function authGithub(){
     });
 }
 
+function signOutGithub(){
+    firebase.auth().signOut().then( (result)=> {
+      console.log(result);
+    }).catch(function(error) {
+      console.log(error);
+    });
+}
+
 
 //=============================================================
 //functions
@@ -49,6 +57,7 @@ function login$logout(){
 
     }
     else if(loginBtn.textContent == "Log Out"){
+        signOutGithub();
         localStorage.removeItem("logedinUser");
         loginBtn.textContent = "Log In";
         gitHubIcon.style.display = "inline-block";
