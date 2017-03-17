@@ -47,6 +47,12 @@ function signOutGithub(){
 
 
 //Log in --------------------------------------------
+
+function isLogedin(){
+    let logedin = localStorage.getItem("logedinUser");
+}
+
+//log in and out
 function login$logout(){
     if(loginBtn.textContent == "Log In"){
         authGithub();
@@ -62,9 +68,18 @@ function login$logout(){
     }
 }
 
+//check is new or exsisting user
 function exsistingUser(result){
     let user = result.user.providerData[0];
     let username;
+    let logedinUser = {
+        name: user.displayName,
+        email: user.email,
+        profilePic: user.photoURL,
+        uid: user.uid,
+        userName: username
+    };
+    
     console.log(`users/${user.uid}`);
     firebase.database().ref(`users/${user.uid}`).once("value",(snapshot)=>{
         if(snapshot.val() === null){
@@ -73,14 +88,24 @@ function exsistingUser(result){
         }
         else if(snapshot.val().userName !== undefined){
             username = snapshot.val().userName;
+            let logedinUser = {
+                name: user.displayName,
+                email: user.email,
+                profilePic: user.photoURL,
+                uid: user.uid,
+                userName: username
+            };
+            
             profilePic.src=user.photoURL;
             gitHubIcon.style.display = "none";
             profilePic.style.display = "inline-block";
             greetings.textContent = `Welcome ${username}`;
+            localStorage.setItem("logedinUser", JSON.stringify(logedinUser));
         }
     });       
 }
 
+// new users set their userNames
 function firstTimeUser(user){
     let newUserDiv = document.getElementById("newUser");
     let message = newUserDiv.children[1];
@@ -121,6 +146,7 @@ function firstTimeUser(user){
     });  
 }
 
+//add new user to database
 function setLogedinUserInfo(user,username){
     
     let logedinUser = {
