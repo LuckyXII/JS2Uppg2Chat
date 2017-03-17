@@ -263,6 +263,7 @@ main{
     width: 91%;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 15px;
     
 }
 
@@ -283,7 +284,8 @@ main{
     -ms-user-select: none;
     user-select: none;
     margin: 0;
-    margin-top: 10px;
+    margin-top: 12px;
+    margin-bottom: 10px;
 }
 
 #online{
