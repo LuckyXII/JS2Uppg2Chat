@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     
-                    <div class="message">
+                    <div class="message floatRight">
                        <div class="messageMine">
                             <div class="messageInfo">`${date}`</div>
                             <div class="profilePic"></div>
@@ -56,10 +56,49 @@
                             </div>
                         </div>
                     </div>
-                    <div id="sendMessage">
-                        <button>Send</button>
-                        <input type="text" placeholder="write message"/>
+                    <div class="message">
+                       <div class="messageOthers">
+                            <div class="messageInfo">`${userName} ${date}`</div>
+                            <div class="profilePic"></div>
+                            <p class="messageContent">This is a loong loong loong loong loongloongloong v loong loong loong loong loongloong loong loong loong loong loong message</p><br>
+                            <div class="messageRating">
+                                <div class="posRate">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                    <p>0</p>
+                                </div>
+                                <div class="negRate">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                    <p>0</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <div class="message">
+                       <div class="messageOthers">
+                            <div class="messageInfo">`${userName} ${date}`</div>
+                            <div class="profilePic"></div>
+                            <p class="messageContent">This is a message</p><br>
+                            <div class="messageRating">
+                                <div class="posRate">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                    <p>0</p>
+                                </div>
+                                <div class="negRate">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                    <p>0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                </div>
+                <div id="sendMessage">
+                    <button>Send</button>
+                    <input type="text" placeholder="write message"/>
                 </div>
                 
             </div>
@@ -78,6 +117,7 @@
                     <div id="onlineUsers"></div>
                 </div>
             </aside>
+           
         </main>
         <footer>
             <h1>Cheers</h1>

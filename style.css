@@ -75,22 +75,34 @@ main{
     -ms-flex-pack: center;
     justify-content: center;
     z-index: 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 #chat{
     position: relative;
     display:block;
-    height:100%;
+    height:93%;
     width: 70vw;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(30,30,30,0.8);
     -ms-flex-negative: 2;
     flex-shrink: 3;
     overflow-y: scroll;
+    border-radius: 3px;
+}
+
+.floatLeft{
+    float:left;
+}
+.floatRight{
+    float: right;
 }
 
 .message{
-    width: 100%;
+    display: block;
+    clear: both;
+    width: 450px;
     height:auto;
     color: white;
     -webkit-user-select: none;
@@ -104,7 +116,13 @@ main{
     -moz-user-select: auto;
     -ms-user-select: auto;
     user-select: auto;
-    font-family:'Raleway', sans-serif;;
+    font-family:'Raleway', sans-serif;
+    max-width: 400px;
+    text-align: left;
+}
+
+.messageMin .messageContent{
+    text-align: right;
 }
 .messageInfo{
     width:auto;
@@ -327,11 +345,12 @@ main{
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
-    position: absolute;
-    bottom: 0;
+    position: relative;
     border-top: 1px solid #BBB;
-    width: 100%;
+    width: 70vw;
     background-color: #EEE;
+    
+    
 }
 #sendMessage input{
     width: 100%;

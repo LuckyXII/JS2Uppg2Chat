@@ -3,7 +3,6 @@
 
 //=============================================================
 //GLOBALS
-var provider = new firebase.auth.GithubAuthProvider();
 var loginBtn = document.getElementById("loginBtn");
 var profilePic = document.getElementById("profilePic");
 var gitHubIcon = document.getElementById("GH");
@@ -23,6 +22,7 @@ loginBtn.addEventListener("click", login$logout);
 
 //Authenticate User GitHub
 function authGithub(){
+    let provider = new firebase.auth.GithubAuthProvider();
     firebase.auth().signInWithPopup(provider)
     .then((result)=>{
         console.log(result);
@@ -34,9 +34,8 @@ function authGithub(){
 }
 
 function signOutGithub(){
-    firebase.auth().signOut().then( (result)=> {
-      console.log(result);
-    }).catch(function(error) {
+    firebase.auth().signOut().then(()=>{})
+    .catch(function(error) {
       console.log(error);
     });
 }
