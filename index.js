@@ -50,6 +50,15 @@ function signOutGithub(){
 
 function isLogedin(){
     let logedin = localStorage.getItem("logedinUser");
+    let user;
+    if(logedin !== null){
+        user = JSON.parse(logedin);
+        
+        profilePic.src=user.profilePic;
+        gitHubIcon.style.display = "none";
+        profilePic.style.display = "inline-block";
+        greetings.textContent = `Welcome ${user.username}`;
+    }
 }
 
 //log in and out
