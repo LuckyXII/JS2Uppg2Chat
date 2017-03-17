@@ -25,7 +25,7 @@ function authGithub(){
     firebase.auth().signInWithPopup(provider)
     .then((result)=>{
         console.log(result);
-        existingUser(result);
+        //exsistingUser(result);
     })
     .catch((error)=>{
         console.log(error);
@@ -56,7 +56,7 @@ function login$logout(){
     }
 }
 
-function existingUser(result){
+function exsistingUser(result){
     let user = result.user.providerData[0];
     let id = user.uid, username;
     
@@ -86,10 +86,10 @@ function firstTimeUser(user){
         newUsername = newUserDiv.children[2].value;
         if(newUsername !== ""){
             firebase.database().ref("users/").once("value", (snapshot)=>{
-                let data = snapshot.val();
-                for(let prop in data){
-                    console.log(data[prop]);
-                    if(data[prop] == newUsername ){
+                let user = snapshot.val();
+                for(let prop in user){
+                    console.log(user[prop]);
+                    if(user[prop] == newUsername ){
                         foundUser = true; 
                     }
                     else{
