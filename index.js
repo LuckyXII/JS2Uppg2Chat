@@ -72,6 +72,7 @@ function exsistingUser(result){
     firebase.database().ref("users/" + id).once("value",(snapshot)=>{
          
         if(snapshot.val() === null){
+            console.log(snapshot.val());
             firstTimeUser(user);
             
         }
