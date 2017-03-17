@@ -92,7 +92,7 @@ function firstTimeUser(user){
     let newUserDiv = document.getElementById("newUser");
     let message = newUserDiv.children[1].textContent;
     let newUsername;
-    let submit = newUserDiv.children[4];
+    let submit = document.getElementById("submitUsername");
     
     newUserDiv.style.display = "flex";
     

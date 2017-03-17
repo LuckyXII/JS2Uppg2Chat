@@ -5,6 +5,9 @@ body, html{
     margin: 0;
     padding: 0;
 }
+button{
+    cursor: pointer;
+}
 
 #newUser{
     display: -webkit-box;
