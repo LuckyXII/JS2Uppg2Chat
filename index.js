@@ -77,6 +77,8 @@ function exsistingUser(result){
         }
         else if(snapshot.val().userName !== undefined){
             username = snapshot.val().userName;
+            profilePic.src=user.photoURL;
+            profilePic.style.display = "inline-block";
             greetings.textContent = `Welcome ${username}`;
         }
     });       
@@ -117,9 +119,6 @@ function firstTimeUser(user){
         else if(!foundUser){
             newUserDiv.style.display = "none";
             setLogedinUserInfo(user,newUsername);
-            profilePic.src=user.photoURL;
-            profilePic.style.display = "inline-block";
-            greetings.textContent = `Welcome ${newUsername}`;
         }
         
     });  
