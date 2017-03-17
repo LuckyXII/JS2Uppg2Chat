@@ -58,22 +58,17 @@ function login$logout(){
 
 function existingUser(result){
     let user = result.user.providerData[0];
-    let id = user.uid;
+    let id = user.uid, username;
     
     firebase.database().ref("users/" + id).once("value",(snapshot)=>{
-        let userName;
-        try{
-            userName = snapshot.val().userName;
-        }catch(e){
-            console.log(e);
-        }
-            
+         
         if(snapshot.val() === null){
             firstTimeUser(user);
             
         }
-        else if(userName !== undefined){
-            greetings.textContent = `Welcome ${userName}`;
+        else if(snapshot.val().userName !== undefined){
+            username = snapshot.val().userName;
+            greetings.textContent = `Welcome ${username}`;
         }
 
     });       
