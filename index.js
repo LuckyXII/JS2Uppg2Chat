@@ -72,7 +72,11 @@ function exsistingUser(result){
     firebase.database().ref(`users/${user.uid}`).once("value",(snapshot)=>{
         if(snapshot.val() === null){
             console.log(snapshot.val());
-            firstTimeUser(user);   
+            firstTimeUser(user); 
+        }
+        if(snapshot.val().userName !== undefined){
+            username = snapshot.val().userName;
+            greetings.textContent = `Welcome ${username}`;
         }
     });       
 }
@@ -92,7 +96,7 @@ function firstTimeUser(user){
                 let user = snapshot.val();
                 for(let prop in user){
                     console.log(user[prop]);
-                    if(user[prop] == newUsername ){
+                    if(user[prop] == newUsername){
                         foundUser = true; 
                     }
                     else{
@@ -111,13 +115,14 @@ function firstTimeUser(user){
         }
         else if(!foundUser){
             newUserDiv.style.display = "none";
-            getLogedinUserInfo(user,newUsername);
+            setLogedinUserInfo(user,newUsername);
+            greetings.textContent = `Welcome ${newUsername}`;
         }
         
     });  
 }
 
-function getLogedinUserInfo(user,username){
+function setLogedinUserInfo(user,username){
     
     let logedinUser = {
         name: user.displayName,
@@ -128,7 +133,7 @@ function getLogedinUserInfo(user,username){
     };
     localStorage.setItem("logedinUser", JSON.stringify(logedinUser));
     profilePic.src=user.photoURL;
-    firebase.database().ref("users/" + username).set(logedinUser);
+    firebase.database().ref("users/" + user.uid).set(logedinUser);
 }
 
 
