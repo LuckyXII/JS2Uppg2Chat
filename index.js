@@ -5,6 +5,7 @@
 //GLOBALS
 var provider = new firebase.auth.GithubAuthProvider();
 var loginBtn = document.getElementById("loginBtn");
+var profilePic = document.getElementById("profilePic");
 
 //=============================================================
 //Main
@@ -36,18 +37,17 @@ function authGithub(){
 
 function login$logout(){
     let gitHubIcon = document.getElementById("GH");
-    let profilePic = document.getElementById("profilePic");
     if(loginBtn.textContent == "Log In"){
         authGithub();
         loginBtn.textContent = "Log Out";
-        gitHubIcon.hidden = "true";
-        profilePic.hidden = "false";
+        gitHubIcon.style.display = "none";
+        profilePic.style.display = "inline-block";
     }
     else if(loginBtn.textContent == "Log Out"){
         localStorage.removeItem("logedinUser");
         loginBtn.textContent = "Log In";
-        gitHubIcon.hidden = "false";
-        profilePic.hidden = "true";
+        gitHubIcon.style.display = "inline-block";
+        profilePic.style.display = "none";
     }
 }
 
@@ -60,5 +60,6 @@ function getLogedinUserInfo(result){
         uid: user.uid
     };
     localStorage.setItem("logedinUser", logedinUser);
+    profilePic.src=user.photoURL;
     firebase.database().ref("users/" + user.uid).set(logedinUser);
 }
