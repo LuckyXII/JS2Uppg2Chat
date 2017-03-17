@@ -67,10 +67,12 @@ function login$logout(){
 
 function exsistingUser(result){
     let user = result.user.providerData[0];
-    let id = user.userName, username;
+    let username;
     
-    firebase.database().ref("users/" + id).on("value",(snapshot)=>{
-         
+    firebase.database().ref(`users/${user.userName}`).on("value",(snapshot)=>{
+        
+        let allData = snapshot.val();
+        
         if(snapshot.val() === null){
             console.log(snapshot.val());
             firstTimeUser(user);
