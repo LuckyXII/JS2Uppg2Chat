@@ -68,21 +68,12 @@ function login$logout(){
 function exsistingUser(result){
     let user = result.user.providerData[0];
     let username;
-    console.log(`users/${user.userName}`);
-    firebase.database().ref(`users/${user.userName}`).on("value",(snapshot)=>{
-        
-        let allData = snapshot.val();
-        
+    console.log(`users/${user.uid}`);
+    firebase.database().ref(`users/${user.uid}`).once("value",(snapshot)=>{
         if(snapshot.val() === null){
             console.log(snapshot.val());
-            firstTimeUser(user);
-            
+            firstTimeUser(user);   
         }
-        else if(snapshot.val().userName !== undefined){
-            username = snapshot.val().userName;
-            greetings.textContent = `Welcome ${username}`;
-        }
-
     });       
 }
 
