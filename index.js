@@ -58,14 +58,19 @@ function login$logout(){
 
 function existingUser(result){
     let user = result.user.providerData[0];
-    let id = user.uid, username;
+    let id = user.uid;
     
     firebase.database().ref("users/" + id).once("value",(snapshot)=>{
-        let userName = snapshot.val().userName;
-        
+        let userName;
+        try{
+            userName = snapshot.val().userName;
+        }catch(e){
+            console.log(e);
+        }
+            
         if(snapshot.val() === null){
-            username = firstTimeUser();
-            getLogedinUserInfo(user,username);
+            firstTimeUser(user);
+            
         }
         else if(userName !== undefined){
             greetings.textContent = `Welcome ${userName}`;
@@ -88,7 +93,7 @@ function getLogedinUserInfo(user,username){
     firebase.database().ref("users/" + username).set(logedinUser);
 }
 
-function firstTimeUser(){
+function firstTimeUser(user){
     let newUserDiv = document.getElementById("newUser");
     let message = newUserDiv.children[1].textContent;
     let newUsername;
@@ -108,7 +113,7 @@ function firstTimeUser(){
                     }
                     else{
                         newUserDiv.style.display = "none";
-                        return newUsername;
+                        getLogedinUserInfo(user,newUsername);
                     }
                 }
             });
