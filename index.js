@@ -67,7 +67,7 @@ function login$logout(){
 
 function exsistingUser(result){
     let user = result.user.providerData[0];
-    let id = user.uid, username;
+    let id = user.userName, username;
     
     firebase.database().ref("users/" + id).on("value",(snapshot)=>{
          
