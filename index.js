@@ -62,12 +62,13 @@ function existingUser(result){
     
     firebase.database().ref("users/" + id).once("value",(snapshot)=>{
         let userName = snapshot.val().userName;
-        if(userName !== undefined){
-            greetings.textContent = `Welcome ${userName}`;
-        }
-        else{
+        
+        if(snapshot.val() === null){
             username = firstTimeUser();
             getLogedinUserInfo(user,username);
+        }
+        else if(userName !== undefined){
+            greetings.textContent = `Welcome ${userName}`;
         }
 
     });       
