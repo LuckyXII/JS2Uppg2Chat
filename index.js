@@ -57,7 +57,7 @@ function isLogedin(){
         profilePic.src=user.profilePic;
         gitHubIcon.style.display = "none";
         profilePic.style.display = "inline-block";
-        greetings.textContent = `Welcome ${user.username}`;
+        greetings.textContent = `Welcome ${user.userName}`;
         loginBtn.textContent = "Log Out";
     }
 }
