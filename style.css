@@ -1,4 +1,6 @@
 
+*/* my message color #81028E*/
+
 body, html{
     margin: 0;
     padding: 0;
@@ -35,6 +37,7 @@ main{
 }
 
 #chat{
+    position: relative;
     display:block;
     height:100%;
     width: 70vw;
@@ -42,58 +45,93 @@ main{
     box-shadow: 0px 0px 10px rgba(30,30,30,0.8);
     -ms-flex-negative: 2;
     flex-shrink: 3;
+    overflow-y: scroll;
 }
 
 .message{
     width: 100%;
     height:auto;
     color: white;
-    height: 74px;
-    
-    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.messageContent{
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+    font-family:'Raleway', sans-serif;;
 }
 .messageInfo{
     width:auto;
     margin:0;
-    background-color: rgba(240,240,240,0.7);
+    background-color: rgba(240,240,240,0.5);
     border-radius: 10px;
     padding-left: 5px;
     padding-right: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
+     margin-left: 35px;
+    margin-right: 35px;
     color: black;
 }
 
 .profilePic{
     display: inline-block;
     border-radius: 100%;
-    width:20px;
-    height: 20px;
+    width:18px;
+    height: 18px;
     background-color: deepskyblue;
     margin-left: 5px;
     margin-right: 5px;
+    vertical-align: middle;
 }
+
 
 .messageOthers{
     display: inline-block;
     
 }
 .messageOthers p{
-    background-color: rebeccapurple;
+    display: inline-block;
+    background-color: #D35603;
     padding: 5px;
     border-radius: 10px;
     margin:0; 
-    border: 1px solid #252525;
     box-shadow: 5px 5px 5px rgba(25,25,25,0.5);
 }
 
 .messageMine{
-    
+    display: inline-block;
+    float: right;
+}
+.messageMine p{
+    display: inline-block;
+    background-color: #81028E;
+    padding: 5px;
+    border-radius: 10px;
+    margin:0; 
+    box-shadow: -5px 5px 5px rgba(25,25,25,0.5);
+    float: right;
+}
+.messageMine .profilePic{
+    float: right;
+    margin-top: 5px;
+}
+
+.messageMine .messageInfo{
+    text-align: right;
+}
+.messageMine .messageRating{
+    float:right;
 }
 
 .messageRating{
-    height: 25px;
+    height: 20px;
     margin-top: 3px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .messageRating p{
     height: 15px;
@@ -108,8 +146,7 @@ main{
     padding: 0;
     padding-left: 5px;
     padding-right: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+    
 }
 .negRate, .posRate{
     display: inline-block;
@@ -133,12 +170,16 @@ main{
 }
 #sidebar h2{
     color: white;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    text-align: center;
     font-family: "lobster";
     text-shadow:
    -1px -1px 0 #000,  
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
+    margin-bottom: 10px;
 }
 
 #sidebar form{
@@ -154,6 +195,10 @@ main{
     justify-content: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #sidebar input,button{
@@ -169,10 +214,11 @@ main{
 #sidebar button{
     width: 91%;
     border-radius: 5px;
+    cursor: pointer;
     
 }
 
-online p{
+#onlineDevider p{
     color: white;
     background-color: #314c7b;
     border: 1px solid #252525;
@@ -184,6 +230,10 @@ online p{
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #online{
@@ -204,6 +254,43 @@ online p{
 #online input{
     border-radius: 10px;
     margin-bottom: 10px;
+    padding-left: 30px;
+}
+
+#online i{
+    position: absolute;
+    top: 245px;
+    right: 215px;
+    cursor: pointer;
+}
+
+#sendMessage{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #BBB;
+    width: 100%;
+    background-color: #EEE;
+}
+#sendMessage input{
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+}
+#sendMessage button{
+    height: 35px;
+    margin: auto;
+    width: 70px;
+    cursor: pointer;
 }
 
 

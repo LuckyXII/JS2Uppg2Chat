@@ -4,16 +4,16 @@
 //=============================================================
 //GLOBALS
 var provider = new firebase.auth.GithubAuthProvider();
-
+var loginBtn = document.getElementById("loginBtn");
 
 //=============================================================
 //Main
 
-authGithub();
+
 
 //=============================================================
 //Callbacks
-
+loginBtn.addEventListener("click", authGithub);
 
 //=============================================================
 //FIREBASE

@@ -5,19 +5,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <script src="https://use.fontawesome.com/e4978cdcf5.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         
         <main>
+           <!-- CHAT WINDOW -->
             <div id="chatContainer">
                 <div id="chat">
                     <div class="message">
-                       <div class="profilePic"></div>
                        <div class="messageOthers">
                             <div class="messageInfo">`${userName} ${date}`</div>
-                            <p>This is a message</p>
+                            <div class="profilePic"></div>
+                            <p class="messageContent">This is a message</p><br>
                             <div class="messageRating">
                                 <div class="posRate">
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
@@ -30,17 +32,42 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="message">
+                       <div class="messageMine">
+                            <div class="messageInfo">`${date}`</div>
+                            <div class="profilePic"></div>
+                            <p class="messageContent">This is my message</p><br>
+                       
+                            <div class="messageRating">
+                                <div class="posRate">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                    <p>0</p>
+                                </div>
+                                <div class="negRate">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                    <p>0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sendMessage">
+                        <button>Send</button>
+                        <input type="text" placeholder="write message"/>
+                    </div>
                 </div>
+                
             </div>
+            <!-- SIDEBAR -->
             <aside id="sidebar">
                 <form action="#">
-                    <h2>Log In</h2>
-                    <input id="username" type="text" name="username">
-                    <input id="password" type="text" name ="password"><br>
-                    <button>Log In</button>    
+                    <h2>Log on with GitHub</h2>
+                    <i class="fa fa-github fa-5x" aria-hidden="true"></i>
+                    <button id="loginBtn">Log In</button>    
                 </form>
-                <online><p>Online</p></online>
+                <div id="onlineDevider"><p>Online</p></div>
                 <div id="online">
+                    <i class="fa fa-search" aria-hidden="true"></i>
                     <input type="search">
                     <div id="onlineUsers"></div>
                 </div>
