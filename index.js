@@ -69,7 +69,7 @@ function exsistingUser(result){
     let user = result.user.providerData[0];
     let id = user.uid, username;
     
-    firebase.database().ref("users/" + id).once("value",(snapshot)=>{
+    firebase.database().ref("users/" + id).on("value",(snapshot)=>{
          
         if(snapshot.val() === null){
             console.log(snapshot.val());
