@@ -88,6 +88,7 @@ function firstTimeUser(user){
             firebase.database().ref("users/").once("value", (snapshot)=>{
                 let data = snapshot.val();
                 for(let prop in data){
+                    console.log(data[prop]);
                     if(data[prop] == newUsername ){
                         foundUser = true; 
                     }
