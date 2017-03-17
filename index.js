@@ -53,7 +53,7 @@ function login$logout(){
         authGithub();
         loginBtn.textContent = "Log Out";
         gitHubIcon.style.display = "none";
-        profilePic.style.display = "inline-block";
+        
 
     }
     else if(loginBtn.textContent == "Log Out"){
@@ -74,7 +74,7 @@ function exsistingUser(result){
             console.log(snapshot.val());
             firstTimeUser(user); 
         }
-        if(snapshot.val().userName !== undefined){
+        else if(snapshot.val().userName !== undefined){
             username = snapshot.val().userName;
             greetings.textContent = `Welcome ${username}`;
         }
@@ -116,6 +116,8 @@ function firstTimeUser(user){
         else if(!foundUser){
             newUserDiv.style.display = "none";
             setLogedinUserInfo(user,newUsername);
+            profilePic.src=user.photoURL;
+            profilePic.style.display = "inline-block";
             greetings.textContent = `Welcome ${newUsername}`;
         }
         
@@ -133,6 +135,7 @@ function setLogedinUserInfo(user,username){
     };
     localStorage.setItem("logedinUser", JSON.stringify(logedinUser));
     profilePic.src=user.photoURL;
+    profilePic.style.display = "inline-block";
     firebase.database().ref("users/" + user.uid).set(logedinUser);
 }
 
