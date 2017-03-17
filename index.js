@@ -62,6 +62,7 @@ function login$logout(){
         loginBtn.textContent = "Log In";
         gitHubIcon.style.display = "inline-block";
         profilePic.style.display = "none";
+        greetings.textContent = "Log in with GitHub";
     }
 }
 
