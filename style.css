@@ -6,6 +6,44 @@ body, html{
     padding: 0;
 }
 
+#newUser{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: none;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position:fixed;
+    z-index: 10;
+    width:250px;
+    height: 250px;
+    background-color: #303030;
+    margin-left: 35vw;
+    margin-top: 30vh;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    border-radius: 5px;
+}
+#newUser h1,p{
+    color: white;
+    font-family: "lobster";
+    margin: 5px;
+    text-align: center;
+}
+#newUser button, input{
+    width: 160px;
+    height: 30px;
+    border-radius: 8px;
+}
+#newUser input{
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
 main{
     display: -webkit-box;
     display: -ms-flexbox;
@@ -185,7 +223,8 @@ main{
 #profilePic{
     display:none;
     width:auto;
-    height: 100px;
+    height: 80px;
+    border-radius: 100%;
 }
 
 #sidebar form{

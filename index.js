@@ -6,6 +6,7 @@
 var provider = new firebase.auth.GithubAuthProvider();
 var loginBtn = document.getElementById("loginBtn");
 var profilePic = document.getElementById("profilePic");
+var greetings = document.getElementById("greeting");
 
 //=============================================================
 //Main
@@ -24,7 +25,7 @@ function authGithub(){
     firebase.auth().signInWithPopup(provider)
     .then((result)=>{
         console.log(result);
-        getLogedinUserInfo(result);
+        existingUser(result);
     })
     .catch((error)=>{
         console.log(error);
@@ -35,13 +36,17 @@ function authGithub(){
 //=============================================================
 //functions
 
+
+//Log in --------------------------------------------
 function login$logout(){
     let gitHubIcon = document.getElementById("GH");
+    
     if(loginBtn.textContent == "Log In"){
         authGithub();
         loginBtn.textContent = "Log Out";
         gitHubIcon.style.display = "none";
         profilePic.style.display = "inline-block";
+
     }
     else if(loginBtn.textContent == "Log Out"){
         localStorage.removeItem("logedinUser");
@@ -51,15 +56,68 @@ function login$logout(){
     }
 }
 
-function getLogedinUserInfo(result){
+function existingUser(result){
     let user = result.user.providerData[0];
+    let id = user.uid, username;
+    
+    firebase.database().ref("users/" + id).once("value",(snapshot)=>{
+        let userName = snapshot.val().userName;
+        if(userName !== undefined){
+            greetings.textContent = `Welcome ${userName}`;
+        }
+        else{
+            username = firstTimeUser();
+            getLogedinUserInfo(user,username);
+        }
+
+    });       
+}
+
+function getLogedinUserInfo(user,username){
+    
     let logedinUser = {
         name: user.displayName,
         email: user.email,
         profilePic: user.photoURL,
-        uid: user.uid
+        uid: user.uid,
+        userName: username
     };
-    localStorage.setItem("logedinUser", logedinUser);
+    localStorage.setItem("logedinUser", JSON.stringify(logedinUser));
     profilePic.src=user.photoURL;
-    firebase.database().ref("users/" + user.uid).set(logedinUser);
+    firebase.database().ref("users/" + username).set(logedinUser);
 }
+
+function firstTimeUser(){
+    let newUserDiv = document.getElementById("newUser");
+    let message = newUserDiv.children[1].textContent;
+    let newUsername;
+    let submit = newUserDiv.children[3];
+    
+    newUserDiv.style.display = "flex";
+    
+    submit.addEventListener("click", ()=>{
+        newUsername = newUserDiv.children[2].value;
+        if(newUsername !== ""){
+            firebase.database().ref("users/").once("value", (snapshot)=>{
+                let data = snapshot.val();
+                for(let prop in data){
+                    if(data[prop] == newUsername ){
+                        message.style.color = "red";
+                        message = "Error: Username taken";
+                    }
+                    else{
+                        newUserDiv.style.display = "none";
+                        return newUsername;
+                    }
+                }
+            });
+        }else{
+            message.style.color = "red";
+            message = "Error: field empty";
+        }
+    });
+    
+}
+
+//END
+//--------------------------------------------------

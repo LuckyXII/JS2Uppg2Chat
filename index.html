@@ -10,7 +10,12 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        
+        <div id="newUser">
+            <h1>Welcome!</h1>
+            <p>Since this is your first time we ask you to create a username</p>
+            <input type="text" placeholder="userName"><br>
+            <button>Submit</button>
+        </div>
         <main>
            <!-- CHAT WINDOW -->
             <div id="chatContainer">
@@ -61,7 +66,7 @@
             <!-- SIDEBAR -->
             <aside id="sidebar">
                 <form action="#">
-                    <h2>Log on with GitHub</h2>
+                    <h2 id="greeting">Log on with GitHub</h2>
                     <i id="GH" class="fa fa-github fa-5x" aria-hidden="true"></i>
                     <img id="profilePic" src="#" alt="profilePic"/>
                     <button id="loginBtn">Log In</button>    
