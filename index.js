@@ -74,6 +74,45 @@ function existingUser(result){
     });       
 }
 
+function firstTimeUser(user){
+    let newUserDiv = document.getElementById("newUser");
+    let message = newUserDiv.children[1];
+    let newUsername,foundUser;
+    let submit = document.getElementById("submitUsername");
+    
+    newUserDiv.style.display = "flex";
+    
+    submit.addEventListener("click", ()=>{
+        newUsername = newUserDiv.children[2].value;
+        if(newUsername !== ""){
+            firebase.database().ref("users/").once("value", (snapshot)=>{
+                let data = snapshot.val();
+                for(let prop in data){
+                    if(data[prop] == newUsername ){
+                        foundUser = true; 
+                    }
+                    else{
+                        foundUser = false;
+                    }
+                }
+            });
+        }else{
+            message.style.color = "red";
+            message.textContent = "Error: field empty";
+        }
+        
+        if(foundUser){
+            message.style.color = "red";
+            message.textContent = "Error: Username taken";
+        }
+        else if(!foundUser){
+            newUserDiv.style.display = "none";
+            getLogedinUserInfo(user,newUsername);
+        }
+        
+    });  
+}
+
 function getLogedinUserInfo(user,username){
     
     let logedinUser = {
@@ -88,37 +127,6 @@ function getLogedinUserInfo(user,username){
     firebase.database().ref("users/" + username).set(logedinUser);
 }
 
-function firstTimeUser(user){
-    let newUserDiv = document.getElementById("newUser");
-    let message = newUserDiv.children[1].textContent;
-    let newUsername;
-    let submit = document.getElementById("submitUsername");
-    
-    newUserDiv.style.display = "flex";
-    
-    submit.addEventListener("click", ()=>{
-        newUsername = newUserDiv.children[2].value;
-        if(newUsername !== ""){
-            firebase.database().ref("users/").once("value", (snapshot)=>{
-                let data = snapshot.val();
-                for(let prop in data){
-                    if(data[prop] == newUsername ){
-                        message.style.color = "red";
-                        message = "Error: Username taken";
-                    }
-                    else{
-                        newUserDiv.style.display = "none";
-                        getLogedinUserInfo(user,newUsername);
-                    }
-                }
-            });
-        }else{
-            message.style.color = "red";
-            message = "Error: field empty";
-        }
-    });
-    
-}
 
 //END
 //--------------------------------------------------
