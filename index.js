@@ -22,7 +22,7 @@ loginBtn.addEventListener("click", login$logout);
 
 //Authenticate User GitHub
 function authGithub(){
-    firebase.auth().signInWithRedirect(provider)
+    firebase.auth().signInWithPopup(provider)
     .then((result)=>{
         console.log(result);
         exsistingUser(result);
