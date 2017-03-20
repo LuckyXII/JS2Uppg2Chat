@@ -123,10 +123,10 @@ function rateMsg(e){
                     negRate:data.negRate
                 };
 
-                if(msgClass === "thumbUp"){
+                if(msgClass === "fa fa-thumbs-o-up thumbUp"){
                     rating.posRate++;
                 }
-                else if(msgClass === "thumbDown"){
+                else if(msgClass === "fa fa-thumbs-o-down thumbDown"){
                     rating.negRate++;
                 }
 
