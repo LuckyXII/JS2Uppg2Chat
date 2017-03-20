@@ -51,7 +51,7 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         }
         
         elm = newElement("div");
-        elm.innerHTML = newMessage(message.sender,message.content,message.ID,rate.posRate,rate.negRate,isMine);
+        elm.innerHTML = newMessage(message.sender,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
         
         chat.appendChild(elm);
         thumbUp = elm.children[0].children[0].children[4].children[0].children[0];
@@ -196,7 +196,7 @@ function addMessage(){
     
 }
 
-function newMessage(user,text,msgID,posRate,negRate,isMine){
+function newMessage(user,text,msgID,posRate,negRate,date,isMine){
     let className, float;
    
     if(isMine){
@@ -210,7 +210,7 @@ function newMessage(user,text,msgID,posRate,negRate,isMine){
     
     let message = `<div class="message ${float}">
                        <div class=${className}>
-                            <div class="messageInfo">${user} ${currentDate()}</div>
+                            <div class="messageInfo">${user} ${date}</div>
                             <div class="profilePic"></div>
                             <p class="messageContent">${text}</p><br>
                             <div class="messageRating">
