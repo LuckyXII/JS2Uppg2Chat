@@ -9,8 +9,7 @@ var gitHubIcon = document.getElementById("GH");
 var greetings = document.getElementById("greeting");
 var chatBtn = document.getElementById("sendBtn");
 var chatInput = document.getElementById("chatInput");
-var posRate = document.getElementsByClassName("posRate");
-var negRate = document.getElementsByClassName("negRate");
+
 
 //=============================================================
 //Main
@@ -29,6 +28,19 @@ chatBtn.addEventListener("click", addMessage);
 
 //=============================================================
 //FIREBASE
+
+//update online
+firebase.database().ref("online/").on("value", (snapshot)=>{
+    let online = snapshot.val();
+    let userDiv = document.getElementById("onlineUsers");
+    let li;
+    
+    for(let user in online){
+        li = newElement("li");
+        li.textContent = online[user].username;
+        userDiv.appendChild(li);
+    }
+});
 
 
 //updateChat
@@ -102,6 +114,32 @@ function signOutGithub(){
 //functions
 
 //-------------------------------------------
+//Online
+
+function isOnline(user,status){
+    
+    firebase.database().ref("online/" + user.uid).once("value", (snapshot)=>{
+        let onlineUsers = snapshot.val();
+        let updateObj = {};
+        
+        updateObj = {
+            uid: user.uid,
+            username: user.userName,
+            online: status
+        };
+        
+        if(onlineUsers !== null){
+            update(updateObj);
+        }
+        else{ //new online user
+            firebase.database().ref("online/" + user.uid).set(updateObj);
+        }
+    });
+}
+
+
+//END
+//-------------------------------------------
 //Messages
 
 //add rating
@@ -144,7 +182,7 @@ function rateMsg(e){
                 obj["ratings/" +msgID] = rating;
                 obj["messages/" +msgID +"/ratings"] = rating;
 
-                updateRating(obj);
+                update(obj);
             }else{
                 alert("already rated");
             }
@@ -167,14 +205,12 @@ function rateMsg(e){
             
             firebase.database().ref("ratings/" + msgID).set(newrating);
             obj["messages/" +msgID +"/ratings"] = newrating;
-            updateRating(obj);
+            update(obj);
         }
     });
 }
 
-function updateRating(obj){
-    firebase.database().ref().update(obj);
-}
+
 
 //add msg to database
 function addMessage(){
@@ -262,12 +298,15 @@ function isLogedin(){
 
 //log in and out
 function login$logout(){
+    let user = JSON.parse(localStorage.getItem("logedinUser"));
+    
     if(loginBtn.textContent == "Log In"){
         authGithub();
         loginBtn.textContent = "Log Out";
     }
     else if(loginBtn.textContent == "Log Out"){
         signOutGithub();
+        isOnline(user,false);
         localStorage.removeItem("logedinUser");
         loginBtn.textContent = "Log In";
         gitHubIcon.style.display = "inline-block";
@@ -280,13 +319,6 @@ function login$logout(){
 function exsistingUser(result){
     let user = result.user.providerData[0];
     let username;
-    let logedinUser = {
-        name: user.displayName,
-        email: user.email,
-        profilePic: user.photoURL,
-        uid: user.uid,
-        userName: username
-    };
     
     console.log(`users/${user.uid}`);
     firebase.database().ref(`users/${user.uid}`).once("value",(snapshot)=>{
@@ -309,6 +341,8 @@ function exsistingUser(result){
             profilePic.style.display = "inline-block";
             greetings.textContent = `Welcome ${username}`;
             localStorage.setItem("logedinUser", JSON.stringify(logedinUser));
+            
+            isOnline(logedinUser,true);
         }
     });       
 }
@@ -397,4 +431,8 @@ function addZero(date){
 
 function newElement(elm){
     return document.createElement(elm);
+}
+
+function update(obj){
+    firebase.database().ref().update(obj);
 }

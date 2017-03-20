@@ -345,6 +345,22 @@ main{
     cursor: pointer;
 }
 
+#onlineUsers{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#onlineUsers li{
+    padding-left: 1em;
+    text-indent: -0.7em;
+}
+
+#onlineUsers li::before{
+   content: "• ";
+  color: #00b712; 
+}
+
 #sendMessage{
     display: -webkit-box;
     display: -ms-flexbox;
