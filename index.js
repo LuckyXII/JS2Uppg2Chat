@@ -33,7 +33,7 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
     let data = snapshot.val();
     let chat = document.getElementById("chat");
     let message, isMine,rate, elm;
-    let myID = JSON.parse(localStorage.getItem("logedinUser")).uid;
+    let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
     
     //clear chat
     chat.textContent = "";
@@ -41,7 +41,7 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
     for(let msg in data){
         message = data[msg];
         rate = message.ratings;
-        if(message.ID == myID){
+        if(message.sender == myUser){
             isMine = true; 
         }
         else{
