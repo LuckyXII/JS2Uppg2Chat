@@ -140,7 +140,7 @@ main{
     color: black;
 }
 
-.profilePic, .profilePic img{
+.profilePic{
     display: inline-block;
     border-radius: 100%;
     width:18px;
@@ -148,6 +148,14 @@ main{
     background-color: deepskyblue;
     margin-left: 5px;
     margin-right: 5px;
+    vertical-align: middle;
+}
+
+.profilePic img{
+    display: inline-block;
+    border-radius: 100%;
+    width:18px;
+    height: 18px;
     vertical-align: middle;
 }
 
