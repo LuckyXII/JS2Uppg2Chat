@@ -140,7 +140,7 @@ main{
     color: black;
 }
 
-.profilePic{
+.profilePic, .profilePic img{
     display: inline-block;
     border-radius: 100%;
     width:18px;

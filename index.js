@@ -54,7 +54,7 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         }
         
         elm = newElement("div");
-        elm.innerHTML = newMessage(message.sender,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
+        elm.innerHTML = newMessage(message.sender,message.userPic,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
         
         if(chat.children.length === 0){
             chat.appendChild(elm);    
@@ -194,6 +194,7 @@ function addMessage(){
             content: chatInput.value,
             date: currDate,
             ID: messageID,
+            userPic:user.profilePic,
             ratings:{
                 raters:[""],
                 posRate:0,
@@ -209,7 +210,7 @@ function addMessage(){
     
 }
 
-function newMessage(user,text,msgID,posRate,negRate,date,isMine){
+function newMessage(userName,userPic,text,msgID,posRate,negRate,date,isMine){
     let className, float;
    
     if(isMine){
@@ -223,8 +224,8 @@ function newMessage(user,text,msgID,posRate,negRate,date,isMine){
     
     let message = `<div class="message ${float}">
                        <div class=${className}>
-                            <div class="messageInfo">${user} ${date}</div>
-                            <div class="profilePic"></div>
+                            <div class="messageInfo">${userName} ${date}</div>
+                            <div class="profilePic"><img src="${userPic}" alt="profile"/></div>
                             <p class="messageContent">${text}</p><br>
                             <div class="messageRating">
                                 <div class="posRate">
