@@ -34,8 +34,8 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
     let chat = document.getElementById("chat");
     let message, isMine,rate, elm;
     let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
-    let thumbUp = document.getElementsByClassName("thumbUp");
-    let thumbDown = document.getElementsByClassName("thumbDown");
+    let thumbUp;
+    let thumbDown;
     
     //clear chat
     chat.textContent = "";
@@ -54,9 +54,12 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         elm.innerHTML = newMessage(message.sender,message.content,message.ID,rate.posRate,rate.negRate,isMine);
         
         chat.appendChild(elm);
+        thumbUp = elm.children[0].children[0].children[4].children[0].children[0];
+        thumbDown = elm.children[0].children[0].children[4].children[1].children[0];
         
-        thumbUp[msg].addEventListener("click", rateMsg);
-        thumbDown[msg].addEventListener("click", rateMsg);
+        thumbUp.addEventListener("click", rateMsg);
+        thumbDown.addEventListener("click", rateMsg);
+       
         
         
             
