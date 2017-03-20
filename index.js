@@ -350,7 +350,7 @@ function currentDate(){
     let d = new Date();
     let month = d.getMonth();
     let day = d.getDate();
-    let hours = d.gethours();
+    let hours = d.getHours();
     let minutes = d.getMinutes();
     let seconds = d.getSeconds();
     
