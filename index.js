@@ -9,6 +9,8 @@ var gitHubIcon = document.getElementById("GH");
 var greetings = document.getElementById("greeting");
 var chatBtn = document.getElementById("sendBtn");
 var chatInput = document.getElementById("chatInput");
+var posRate = document.getElementsByClassName("posRate");
+var negRate = document.getElementsByClassName("negRate");
 
 //=============================================================
 //Main
@@ -27,6 +29,7 @@ chatBtn.addEventListener("click", addMessage);
 
 //=============================================================
 //FIREBASE
+
 
 //updateChat
 firebase.database().ref("messages/").on("value", (snapshot)=>{
@@ -130,8 +133,8 @@ function rateMsg(e){
                     rating.negRate++;
                 }
 
-                obj[`ratings/ +${msgID}`] = rating;
-                obj[`messages/${msgID}/ratings`] = rating;
+                obj["ratings/" +msgID] = rating;
+                obj["messages/" +msgID +"/ratings"] = rating;
 
                 updateRating(obj);
             }else{
