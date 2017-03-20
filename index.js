@@ -56,7 +56,15 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         elm = newElement("div");
         elm.innerHTML = newMessage(message.sender,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
         
-        chat.appendChild(elm);
+        if(chat.children.length === 0){
+            chat.appendChild(elm);    
+        }
+        else if(chat.children.length > 0){
+            chat.insertBefore(elm,chat.children[0]);
+        }
+        
+        
+        
         thumbUp = elm.children[0].children[0].children[4].children[0].children[0];
         thumbDown = elm.children[0].children[0].children[4].children[1].children[0];
         
