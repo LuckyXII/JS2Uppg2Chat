@@ -147,10 +147,10 @@ function rateMsg(e){
                 negRate:0
             };
             
-            if(msgClass === "thumbUp"){
+            if(msgClass === "fa fa-thumbs-o-up thumbUp"){
                 newrating.posRate++;
             }
-            else if(msgClass === "thumbDown"){
+            else if(msgClass === "fa fa-thumbs-o-down thumbDown"){
                 newrating.negRate++;
             }
             
