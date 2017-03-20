@@ -49,7 +49,7 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         }
         
         elm = newElement("div");
-        elm.innerHTML = newMessage(message.userName,message.content,message.ID,rate.posRate,rate.negRate,isMine);
+        elm.innerHTML = newMessage(message.sender,message.content,message.ID,rate.posRate,rate.negRate,isMine);
         chat.appendChild(elm);
             
     }
@@ -199,7 +199,7 @@ function newMessage(user,text,msgID,posRate,negRate,isMine){
     
     let message = `<div class="message ${float}">
                        <div class=${className}>
-                            <div class="messageInfo">${user}${currentDate()}</div>
+                            <div class="messageInfo">${user} ${currentDate()}</div>
                             <div class="profilePic"></div>
                             <p class="messageContent">${text}</p><br>
                             <div class="messageRating">
@@ -352,13 +352,20 @@ function setLogedinUserInfo(user,username){
 
 function currentDate(){
     let d = new Date();
-    let month = d.getMonth();
-    let day = d.getDate();
-    let hours = d.getHours();
-    let minutes = d.getMinutes();
-    let seconds = d.getSeconds();
+    let month = addZero(d.getMonth());
+    let day = addZero(d.getDate());
+    let hours = addZero(d.getHours());
+    let minutes = addZero(d.getMinutes());
+    let seconds = addZero(d.getSeconds());
+    
     
     return `${month}/${day} ${hours}:${minutes}:${seconds}`; 
+}
+
+function addZero(date){
+    if(date < 10){
+        return "0"+date;
+    }
 }
 
 function newElement(elm){
