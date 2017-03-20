@@ -154,7 +154,7 @@ function rateMsg(e){
                 newrating.negRate++;
             }
             
-            firebase.database().ref("ratings"/ + msgID).set(newrating);
+            firebase.database().ref("ratings/" + msgID).set(newrating);
         }
     });
 }
