@@ -134,7 +134,7 @@ function isOnline(user,status){
             update(updateObj);
         }
         else{ //new online user
-            firebase.database().ref("online/" + user.uid).set(updateObj);
+            firebase.database().ref("online/" + user.uid).set(obj);
         }
     });
 }
