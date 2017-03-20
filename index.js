@@ -49,7 +49,7 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         }
         
         elm = newElement("div");
-        elm.innerHTML = newMessage(message.userName,message.content,message.ID,rate.posRate,rate.negRate,isMine)
+        elm.innerHTML = newMessage(message.userName,message.content,message.ID,rate.posRate,rate.negRate,isMine);
         chat.appendChild(elm);
             
     }
