@@ -158,6 +158,8 @@ function rateMsg(e){
             }
             
             firebase.database().ref("ratings/" + msgID).set(newrating);
+            obj["messages/" +msgID +"/ratings"] = newrating;
+            updateRating(obj);
         }
     });
 }
