@@ -32,7 +32,7 @@ chatBtn.addEventListener("click", addMessage);
 firebase.database().ref("messages/").on("value", (snapshot)=>{
     let data = snapshot.val();
     let chat = document.getElementById("chat");
-    let message, isMine,rate;
+    let message, isMine,rate, elm;
     let myID = JSON.parse(localStorage.getItem("logedinUser")).uid;
     
     //clear chat
@@ -47,7 +47,10 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         else{
             isMine = false;
         }
-          chat.appendChild(newMessage(message.userName,message.content,message.ID,rate.posRate,rate.negRate,isMine));
+        
+        elm = newElement("div");
+        elm.innerHTML = newMessage(message.userName,message.content,message.ID,rate.posRate,rate.negRate,isMine)
+        chat.appendChild(elm);
             
     }
 });
@@ -175,6 +178,7 @@ function addMessage(){
         };
 
         firebase.database().ref("messages/" + messageID).set(chatObj);
+        chatInput.value = "";
     }else{
         chatBtn.disabled = true;
     }
@@ -355,4 +359,8 @@ function currentDate(){
     let seconds = d.getSeconds();
     
     return `${month}/${day} ${hours}:${minutes}:${seconds}`; 
+}
+
+function newElement(elm){
+    return document.createElement(elm);
 }
