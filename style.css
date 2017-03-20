@@ -352,6 +352,9 @@ main{
 }
 
 #onlineUsers li{
+    color: white;
+    font-family: "lobster";
+    text-align: left;
     padding-left: 1em;
     text-indent: -0.7em;
 }
