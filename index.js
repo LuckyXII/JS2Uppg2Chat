@@ -122,13 +122,15 @@ function isOnline(user,status){
         let onlineUsers = snapshot.val();
         let updateObj = {};
         
-        updateObj = {
+        let obj = {
             uid: user.uid,
             username: user.userName,
             online: status
         };
         
         if(onlineUsers !== null){
+            
+            updateObj["online/"+obj.uid] = obj;
             update(updateObj);
         }
         else{ //new online user
