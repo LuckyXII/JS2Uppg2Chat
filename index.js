@@ -28,16 +28,11 @@ chatBtn.addEventListener("click", addMessage);
 //=============================================================
 //FIREBASE
 
-//updateRating
-fireBase.database().ref("ratings/").on("value", (snapshot)=>{
-    
-});
-
 //updateChat
 firebase.database().ref("messages/").on("value", (snapshot)=>{
     let data = snapshot.val();
     let chat = document.getElementById("chat");
-    let message, isMine;
+    let message, isMine,rate;
     let myID = JSON.parse(localStorage.getItem("logedinUser")).uid;
     
     //clear chat
@@ -45,13 +40,14 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
     
     for(let msg in data){
         message = data[msg];
+        rate = message.ratings;
         if(message.ID == myID){
             isMine = true; 
         }
         else{
             isMine = false;
         }
-          chat.appendChild(newMessage(message.userName,message.content,message.ID,isMine));
+          chat.appendChild(newMessage(message.userName,message.content,message.ID,rate.posRate,rate.negRate,isMine));
             
     }
 });
@@ -86,26 +82,96 @@ function signOutGithub(){
 //add rating
 function rateMsg(e){
     let msgID = e.target.title;
+    let msgClass = e.target.className;
+    let user = JSON.parse(localStorage.getItem("logedinUser")).userName;
+    let rating ={}, obj ={}, newrating = {};
+    let ratedOnce;
+    
+    
+    //check if rated before
+    firebase.database().ref(`ratings/${msgID}`).once("value", (snapshot)=>{
+        let data = snapshot.val();
+        
+        
+        //update rating
+        if(data !== null){
+            
+            ratedOnce = data.raters.filter((users)=>{
+                return users == user;
+            });
+            
+            if(ratedOnce.length === 0){
+
+                rating = {
+                    msgID:data.msgID,
+                    raters:data.raters,
+                    posRate:data.posRate,
+                    negRate:data.negRate
+                };
+
+                if(msgClass === "thumbUp"){
+                    rating.posRate++;
+                }
+                else if(msgClass === "thumbDown"){
+                    rating.negRate++;
+                }
+
+                obj[`ratings/ +${msgID}`] = rating;
+                obj[`messages/${msgID}/ratings`] = rating;
+
+                updateRating(obj);
+            }else{
+                alert("already rated");
+            }
+        }
+        //new rating
+        else{
+            newrating ={
+                msgID:msgID,
+                raters:[user],
+                posRate:0,
+                negRate:0
+            };
+            
+            if(msgClass === "thumbUp"){
+                newrating.posRate++;
+            }
+            else if(msgClass === "thumbDown"){
+                newrating.negRate++;
+            }
+            
+            firebase.database().ref("ratings" + msgID).set();
+        }
+    });
+}
+
+function updateRating(obj){
+    firebase.database().ref().update(obj);
 }
 
 //add msg to database
 function addMessage(){
     let d = new Date();
-    let year = d.getFullYear();
+    let minutes = d.getMinutes();
     let month = d.getMonth();
     let day = d.getDate();
-    let minutes = d.getMinutes();
     let seconds = d.getSeconds();
+    let milseconds = d.getMilliseconds();
     let currDate = currentDate();
     let user = JSON.parse(localStorage.getItem("logedinUser"));
-    let messageID = (`${user.userName}${year}${month}${day}${minutes}${seconds}`);
+    let messageID = (`${user.userName}${month}${day}${minutes}${seconds}${milseconds}`);
     
     if(chatInput.value !== ""){
         let chatObj = {
             sender: user.userName,
             content: chatInput.value,
             date: currDate,
-            ID: messageID
+            ID: messageID,
+            ratings:{
+                raters:[""],
+                posRate:0,
+                negRate:0
+            }
         };
 
         firebase.database().ref("messages/" + messageID).set(chatObj);
@@ -115,7 +181,7 @@ function addMessage(){
     
 }
 
-function newMessage(user,text,msgID,isMine){
+function newMessage(user,text,msgID,posRate,negRate,isMine){
     let className, float;
    
     if(isMine){
@@ -135,11 +201,11 @@ function newMessage(user,text,msgID,isMine){
                             <div class="messageRating">
                                 <div class="posRate">
                                     <i title="${msgID}" class="fa fa-thumbs-o-up thumbUp" aria-hidden="true"></i>
-                                    <p>0</p>
+                                    <p>${posRate}</p>
                                 </div>
                                 <div class="negRate">
                                     <i title="${msgID}" class="fa fa-thumbs-o-down thumbDown" aria-hidden="true"></i>
-                                    <p>0</p>
+                                    <p>${negRate}</p>
                                 </div>
                             </div>
                         </div>
