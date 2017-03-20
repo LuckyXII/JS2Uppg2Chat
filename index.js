@@ -352,7 +352,7 @@ function setLogedinUserInfo(user,username){
 
 function currentDate(){
     let d = new Date();
-    let month = addZero(d.getMonth());
+    let month = addZero(d.getMonth()+1);
     let day = addZero(d.getDate());
     let hours = addZero(d.getHours());
     let minutes = addZero(d.getMinutes());
