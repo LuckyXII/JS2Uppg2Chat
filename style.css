@@ -9,6 +9,10 @@ button{
     cursor: pointer;
 }
 
+.fa{
+    cursor:pointer;
+}
+
 #newUser{
     display: -webkit-box;
     display: -ms-flexbox;
