@@ -63,12 +63,18 @@ firebase.database().ref("online/").on("value", (snapshot)=>{
 
 //updateChat
 firebase.database().ref("messages/").on("value", (snapshot)=>{
-    let data = snapshot.val();
+    let msgData = snapshot.val();
    
     let message, isMine,rate, elm;
     let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
     let thumbUp;
     let thumbDown;
+    let msgNr = 0;
+    
+    
+    let data = msgData.sort((a,b)=>{
+        return a.msgOrder - b.msgOrder;
+    });
     
     //clear chat
     chat.textContent = "";
@@ -82,16 +88,13 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
         else{
             isMine = false;
         }
-        
+            
         elm = newElement("div");
         elm.innerHTML = newMessage(message.sender,message.userPic,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
         
-        if(chat.children.length === 0){
-            chat.appendChild(elm);    
-        }
-        else if(chat.children.length > 0){
-            chat.insertBefore(elm,chat.children[0]);
-        }
+        
+        chat.appendChild(elm);
+        
         
         
         
@@ -251,14 +254,16 @@ function rateMsg(e){
 //add msg to database
 function addMessage(){
     let d = new Date();
+    let year = d.getFullYear();
     let minutes = d.getMinutes();
-    let month = d.getMonth();
+    let month = d.getMonth()+1;
     let day = d.getDate();
     let seconds = d.getSeconds();
     let milseconds = d.getMilliseconds();
     let currDate = currentDate();
     let user = JSON.parse(localStorage.getItem("logedinUser"));
     let messageID = (`${user.userName}${month}${day}${minutes}${seconds}${milseconds}`);
+    let msgfullDate = `${year}${month}${day}${minutes}${seconds}`;
     
     if(chatInput.value !== ""){
         let chatObj = {
@@ -267,6 +272,7 @@ function addMessage(){
             date: currDate,
             ID: messageID,
             userPic:user.profilePic,
+            msgOrder:msgfullDate,
             ratings:{
                 raters:[""],
                 posRate:0,
