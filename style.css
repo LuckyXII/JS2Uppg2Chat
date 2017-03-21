@@ -125,6 +125,10 @@ main{
     text-align: left;
 }
 
+.messageContent br{
+    clear:both;
+}
+
 .messageMin .messageContent{
     text-align: right;
 }
