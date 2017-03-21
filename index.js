@@ -363,6 +363,7 @@ function login$logout(){
         gitHubIcon.style.display = "inline-block";
         profilePic.style.display = "none";
         greetings.textContent = "Log In";
+         mehBtn.style.display = "none";
     }
 }
 
