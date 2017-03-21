@@ -334,6 +334,7 @@ function isLogedin(){
         profilePic.style.display = "inline-block";
         greetings.textContent = `Welcome ${user.userName}`;
         loginBtn.textContent = "Log Out";
+        isOnline(user,true);
     }
 }
 
