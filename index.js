@@ -25,7 +25,14 @@ isLogedin();
 //Callbacks
 mehBtn.addEventListener("click", ()=>{
     let totalMeh = document.getElementById("totalMeh");
-    totalMeh.style.display = "block";
+    if(mehBtn.textContent == "Press for Meh"){
+        totalMeh.style.display = "block"; 
+        mehBtn.textContent = "Un-Meh";
+    }else if( mehBtn.textContent == "Un-Meh"){
+        totalMeh.style.display = "none"; 
+        mehBtn.textContent = "Press for Meh";
+    }
+    
 });
 FBlogin.addEventListener("click", ()=>{
     authFacebook();
