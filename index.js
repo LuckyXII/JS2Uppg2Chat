@@ -52,9 +52,11 @@ firebase.database().ref("online/").on("value", (snapshot)=>{
     userDiv.textContent ="";
     
     for(let user in online){
-        li = newElement("li");
-        li.textContent = online[user].username;
-        userDiv.appendChild(li);
+        if(online[user].online){
+            li = newElement("li");
+            li.textContent = online[user].username;
+            userDiv.appendChild(li);
+        }
     }
 });
 
@@ -375,8 +377,8 @@ function exsistingUser(result){
             profilePic.style.display = "inline-block";
             greetings.textContent = `Welcome ${username}`;
             localStorage.setItem("logedinUser", JSON.stringify(logedinUser));
-            
             isOnline(logedinUser,true);
+            location.reload();
         }
     });       
 }
