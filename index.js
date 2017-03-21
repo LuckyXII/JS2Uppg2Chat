@@ -12,6 +12,7 @@ var chatInput = document.getElementById("chatInput");
 var GHlogin = document.getElementById("GHlogin");
 var FBlogin = document.getElementById("FBlogin");
 var loginOpt = document.getElementById("loginOptions");
+var chat = document.getElementById("chat");
 
 
 //=============================================================
@@ -24,10 +25,12 @@ isLogedin();
 FBlogin.addEventListener("click", ()=>{
     authFacebook();
     loginOpt.style.display = "none";
+    loginBtn.textContent = "Log Out";
 });
 GHlogin.addEventListener("click", ()=>{
     authGithub();
     loginOpt.style.display = "none";
+    loginBtn.textContent = "Log Out";
 });
 loginBtn.addEventListener("click", login$logout);
 chatInput.addEventListener("keydown", (e)=>{
@@ -46,6 +49,8 @@ firebase.database().ref("online/").on("value", (snapshot)=>{
     let userDiv = document.getElementById("onlineUsers");
     let li;
     
+    userDiv.textContent ="";
+    
     for(let user in online){
         li = newElement("li");
         li.textContent = online[user].username;
@@ -57,7 +62,7 @@ firebase.database().ref("online/").on("value", (snapshot)=>{
 //updateChat
 firebase.database().ref("messages/").on("value", (snapshot)=>{
     let data = snapshot.val();
-    let chat = document.getElementById("chat");
+   
     let message, isMine,rate, elm;
     let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
     let thumbUp;
@@ -128,7 +133,9 @@ function authGithub(){
 }
 
 function signOutGithub(){
-    firebase.auth().signOut().then(()=>{})
+    firebase.auth().signOut().then(()=>{
+        chat.textContent ="";
+    })
     .catch(function(error) {
       console.log(error);
     });
