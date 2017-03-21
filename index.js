@@ -257,12 +257,13 @@ function addMessage(){
     let minutes = d.getMinutes();
     let month = d.getMonth()+1;
     let day = d.getDate();
+    let hours = d.getHours();
     let seconds = d.getSeconds();
     let milseconds = d.getMilliseconds();
     let currDate = currentDate();
     let user = JSON.parse(localStorage.getItem("logedinUser"));
     //let messageID = (`${user.userName}${month}${day}${minutes}${seconds}${milseconds}`);
-    let messageID = `${year}${month}${day}${minutes}${seconds}${milseconds}`;
+    let messageID = `${year}${month}${day}${hours}${minutes}${seconds}${milseconds}`;
     
     if(chatInput.value !== ""){
         let chatObj = {
