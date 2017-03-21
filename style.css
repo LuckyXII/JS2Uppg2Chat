@@ -115,6 +115,10 @@ main{
     user-select: none;
 }
 
+.message br{
+    clear:both;
+}
+
 .messageContent{
     -webkit-user-select: auto;
     -moz-user-select: auto;
@@ -123,10 +127,6 @@ main{
     font-family:'Raleway', sans-serif;
     max-width: 400px;
     text-align: left;
-}
-
-.messageContent br{
-    clear:both;
 }
 
 .messageMin .messageContent{
