@@ -10,10 +10,13 @@ button{
 }
 
 #totalMeh{
+    z-index: 100;
     display: none;
     position: fixed;
     height:30vh;
-    width: 30vw;
+    width: auto;
+    top: 30vh;
+    left: 45vw;
 }
 #mehBtn{
     display: none;
