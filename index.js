@@ -11,7 +11,7 @@ var chatBtn = document.getElementById("sendBtn");
 var chatInput = document.getElementById("chatInput");
 var GHlogin = document.getElementById("GHlogin");
 var FBlogin = document.getElementById("FBlogin");
-var loginCont = document.getElementById("loginContainer");
+var loginOpt = document.getElementById("loginOptions");
 
 
 //=============================================================
@@ -23,11 +23,11 @@ isLogedin();
 //Callbacks
 FBlogin.addEventListener("click", ()=>{
     authFacebook();
-    loginCont.style.display = "none";
+    loginOpt.style.display = "none";
 });
 GHlogin.addEventListener("click", ()=>{
     authGithub();
-    loginCont.style.display = "none";
+    loginOpt.style.display = "none";
 });
 loginBtn.addEventListener("click", login$logout);
 chatInput.addEventListener("keydown", (e)=>{
@@ -328,7 +328,7 @@ function login$logout(){
     
     
     if(loginBtn.textContent == "Log In"){
-        loginCont.style.display = "block";
+        loginOpt.style.display = "block";
     }
     else if(loginBtn.textContent == "Log Out"){
         signOutGithub();
