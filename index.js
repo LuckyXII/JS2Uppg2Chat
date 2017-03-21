@@ -21,6 +21,10 @@ isLogedin();
 
 //=============================================================
 //Callbacks
+FBlogin.addEventListener("click", ()=>{
+    authFacebook();
+    loginCont.style.display = "none";
+});
 GHlogin.addEventListener("click", ()=>{
     authGithub();
     loginCont.style.display = "none";
