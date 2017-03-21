@@ -266,7 +266,6 @@ function addMessage(){
             date: currDate,
             ID: messageID,
             userPic:user.profilePic,
-            msgOrder:msgfullDate,
             ratings:{
                 raters:[""],
                 posRate:0,
