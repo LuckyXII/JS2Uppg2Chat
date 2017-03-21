@@ -13,6 +13,7 @@ var GHlogin = document.getElementById("GHlogin");
 var FBlogin = document.getElementById("FBlogin");
 var loginOpt = document.getElementById("loginOptions");
 var chat = document.getElementById("chat");
+var mehBtn = document.getElementById("mehBtn");
 
 
 //=============================================================
@@ -22,6 +23,10 @@ isLogedin();
 
 //=============================================================
 //Callbacks
+mehBtn.addEventListener("click", ()=>{
+    let totalMeh = document.getElementById("totalMeh");
+    totalMeh.style.display = "block";
+});
 FBlogin.addEventListener("click", ()=>{
     authFacebook();
     loginOpt.style.display = "none";
@@ -335,6 +340,10 @@ function isLogedin(){
         greetings.textContent = `Welcome ${user.userName}`;
         loginBtn.textContent = "Log Out";
         isOnline(user,true);
+        
+        if(user.uid == 14220419){
+            mehBtn.style.display = "block";
+        }
     }
 }
 

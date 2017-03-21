@@ -9,6 +9,17 @@ button{
     cursor: pointer;
 }
 
+#totalMeh{
+    display: none;
+    position: fixed;
+    height:30vh;
+    width: 30vw;
+}
+#mehBtn{
+    display: none;
+    width: 91%;
+}
+
 .fa{
     cursor:pointer;
 }
