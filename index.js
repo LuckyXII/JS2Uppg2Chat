@@ -9,6 +9,9 @@ var gitHubIcon = document.getElementById("GH");
 var greetings = document.getElementById("greeting");
 var chatBtn = document.getElementById("sendBtn");
 var chatInput = document.getElementById("chatInput");
+var GHlogin = document.getElementById("GHlogin");
+var FBlogin = document.getElementById("FBlogin");
+var loginCont = document.getElementById("loginContainer");
 
 
 //=============================================================
@@ -18,6 +21,10 @@ isLogedin();
 
 //=============================================================
 //Callbacks
+GHlogin.addEventListener("click", ()=>{
+    authGithub();
+    loginCont.style.display = "none";
+});
 loginBtn.addEventListener("click", login$logout);
 chatInput.addEventListener("keydown", (e)=>{
     if(e.keyCode === 13 ){
@@ -88,6 +95,19 @@ firebase.database().ref("messages/").on("value", (snapshot)=>{
             
     }
 });
+
+//authenticate users Facebook
+function authFacebook(){
+    let provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+    .then((result)=>{
+        console.log(result);
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+    
+}
 
 //Authenticate User GitHub
 function authGithub(){
@@ -302,9 +322,9 @@ function isLogedin(){
 function login$logout(){
     let user = JSON.parse(localStorage.getItem("logedinUser"));
     
+    
     if(loginBtn.textContent == "Log In"){
-        authGithub();
-        loginBtn.textContent = "Log Out";
+        loginCont.style.display = "block";
     }
     else if(loginBtn.textContent == "Log Out"){
         signOutGithub();
@@ -313,7 +333,7 @@ function login$logout(){
         loginBtn.textContent = "Log In";
         gitHubIcon.style.display = "inline-block";
         profilePic.style.display = "none";
-        greetings.textContent = "Log in with GitHub";
+        greetings.textContent = "Log In";
     }
 }
 

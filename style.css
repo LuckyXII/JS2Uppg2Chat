@@ -278,8 +278,8 @@ main{
     user-select: none;
 }
 
-#sidebar input,button{
-    margin-top: 5px;
+#sidebar input{
+    margin-top: 10px;
     height: 25px;
 }
 
@@ -289,11 +289,33 @@ main{
    
 }
 #sidebar button{
-    width: 91%;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 15px;
     
+}
+
+#loginContainer{
+    display: none;
+    position: relative;
+    -ms-flex-preferred-size: 91%;
+    flex-basis: 91%;
+}
+
+#loginOptions{
+    position: absolute;
+    background-color: #314c7b;
+    border: 2px solid #252525;
+    border-radius: 5px;
+    width: 100px;
+    height: 150px;
+    right: 228px;
+    top: 15px;
+}
+
+#loginOptions i{
+ margin-left: 20px;
 }
 
 #onlineDevider p{
@@ -349,6 +371,7 @@ main{
     list-style: none;
     padding: 0;
     margin: 0;
+    
 }
 
 #onlineUsers li{
@@ -376,7 +399,6 @@ main{
     -ms-flex-pack: start;
     justify-content: flex-start;
     position: relative;
-    border-top: 1px solid #BBB;
     width: 70vw;
     background-color: #EEE;
     
@@ -389,7 +411,6 @@ main{
 }
 #sendMessage button{
     height: 35px;
-    margin: auto;
     width: 70px;
     cursor: pointer;
 }
