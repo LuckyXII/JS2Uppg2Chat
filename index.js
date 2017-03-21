@@ -106,6 +106,7 @@ function authFacebook(){
     firebase.auth().signInWithPopup(provider)
     .then((result)=>{
         console.log(result);
+        exsistingUser(result);
     })
     .catch((error)=>{
         console.log(error);
