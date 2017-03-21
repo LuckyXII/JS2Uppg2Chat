@@ -63,18 +63,12 @@ firebase.database().ref("online/").on("value", (snapshot)=>{
 
 //updateChat
 firebase.database().ref("messages/").on("value", (snapshot)=>{
-    let msgData = snapshot.val();
+    let data = snapshot.val();
    
     let message, isMine,rate, elm;
     let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
     let thumbUp;
     let thumbDown;
-    let msgNr = 0;
-    
-    
-    let data = msgData.sort((a,b)=>{
-        return a.msgOrder - b.msgOrder;
-    });
     
     //clear chat
     chat.textContent = "";
@@ -262,8 +256,8 @@ function addMessage(){
     let milseconds = d.getMilliseconds();
     let currDate = currentDate();
     let user = JSON.parse(localStorage.getItem("logedinUser"));
-    let messageID = (`${user.userName}${month}${day}${minutes}${seconds}${milseconds}`);
-    let msgfullDate = `${year}${month}${day}${minutes}${seconds}`;
+    //let messageID = (`${user.userName}${month}${day}${minutes}${seconds}${milseconds}`);
+    let messageID = `${year}${month}${day}${minutes}${seconds}${milseconds}`;
     
     if(chatInput.value !== ""){
         let chatObj = {
