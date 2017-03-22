@@ -461,7 +461,9 @@ function setLogedinUserInfo(user,username){
     profilePic.src=user.photoURL;
     gitHubIcon.style.display = "none";
     profilePic.style.display = "inline-block";
+    greetings.textContent = `Welcome ${username}`;
     firebase.database().ref("users/" + user.uid).set(logedinUser);
+    location.reload();
 }
 
 //END Login
