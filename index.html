@@ -23,6 +23,16 @@
            <!-- CHAT WINDOW -->
             <div id="chatContainer">
                 <div id="chat"></div>
+                <select id="sortBy">
+                    <option selected disabled value="Sort By"><strong>Sort By</strong></option>
+                    <option value="Name">Name</option>
+                    <option value="Date">Date</option>
+                </select>
+                <div id="seeMore">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    <p>0</p>
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </div>
                 <div id="sendMessage">
                     <button id="sendBtn">Send</button>
                     <input id="chatInput" type="text" placeholder="write message"/>

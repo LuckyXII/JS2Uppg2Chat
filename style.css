@@ -110,6 +110,38 @@ main{
     border-radius: 3px;
 }
 
+#sortBy{
+    display: none;
+    position: absolute;
+    border: none;
+    font-family:'Raleway', sans-serif;
+}
+
+#seeMore{
+    display: none;
+    bottom: 16.4vh;
+    position: absolute;
+    background-color: #314c7b;
+    width: auto;
+    border-radius: 10px;
+    
+}
+#seeMore i{
+    color: #FFF;
+    display: inline-block;
+    margin: 4px;
+}
+.fa-arrow-right{
+    text-align: right;
+}
+
+#seeMore p{
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    width: auto;
+}
+
 .floatLeft{
     float:left;
 }
