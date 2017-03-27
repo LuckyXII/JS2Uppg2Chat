@@ -163,10 +163,12 @@ function limitMessages(orderBy,limit){
             snapshot.forEach((data)=>{
                 if(snapshot.length > limit){
                     if(count >= minSee && count < maxSee){
+                        console.log(data.val());
                        addToChat(data.val());
                     }
                 }
                 else{
+                    console.log(data.val());
                     addToChat(data.val());
                 }
             });
@@ -175,6 +177,7 @@ function limitMessages(orderBy,limit){
 function addAllSorted(orderBy){
     firebase.database().ref("messages/").orderByChild(orderBy).once("value", (snapshot)=>{
             snapshot.forEach((data)=>{
+                console.log(data.val());
                 addToChat(data.val());
             });
         });
