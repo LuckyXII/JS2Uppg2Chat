@@ -14,7 +14,12 @@ var FBlogin = document.getElementById("FBlogin");
 var loginOpt = document.getElementById("loginOptions");
 var chat = document.getElementById("chat");
 var mehBtn = document.getElementById("mehBtn");
-
+var sortBy = document.getElementById("sortBy");
+var sortAmount = document.getElementById("sortAmount");
+var seeMore = document.getElementById("seeMore");
+var minSee = 1, maxSee = 10;
+var seeLeft = document.getElementsByClassName("fa-arrow-left")[0];
+var seeRight = document.getElementsByClassName("fa-arrow-right")[0];
 
 //=============================================================
 //Main
@@ -23,6 +28,23 @@ isLogedin();
 
 //=============================================================
 //Callbacks
+sortAmount.addEventListener("keydown", (e)=>{
+    let selectedValue = sortBy.children[sortBy.selectedIndex].value;
+    if(e.keyCode === 13 && sortAmount.value !== ""){
+        showSeeMore();
+        sortMessages(selectedValue, sortAmount.value);
+        sortAmount.value = "";
+        sortAmount.style.display = "none";
+        
+    }
+});
+seeLeft.addEventListener("click", subSeeMore);
+seeRight.addEventListener("click", addSeeMore);
+sortBy.addEventListener("change", showSortAmount);
+sortBy.addEventListener("mouseover", showSelect);
+chat.addEventListener("mouseover", showSelect);
+chat.addEventListener("mouseout", hideSelect);
+
 mehBtn.addEventListener("click", ()=>{
     let totalMeh = document.getElementById("totalMeh");
     if(mehBtn.textContent == "Press for Meh"){
@@ -75,50 +97,7 @@ firebase.database().ref("online/").on("value", (snapshot)=>{
 
 //updateChat
 firebase.database().ref("messages/").on("value", (snapshot)=>{
-    let data = snapshot.val();
-   
-    let message, isMine,rate, elm;
-    let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
-    let thumbUp;
-    let thumbDown;
-    
-    //clear chat
-    chat.textContent = "";
-    
-    for(let msg in data){
-        message = data[msg];
-        rate = message.ratings;
-        if(message.sender == myUser){
-            isMine = true; 
-        }
-        else{
-            isMine = false;
-        }
-            
-        elm = newElement("div");
-        elm.innerHTML = newMessage(message.sender,message.userPic,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
-        
-        
-        chat.appendChild(elm);
-        
-        
-        if(chat.children.length === 0){
-            chat.appendChild(elm);    
-        }
-        else if(chat.children.length > 0){
-            chat.insertBefore(elm,chat.children[0]);
-        }
-        
-        thumbUp = elm.children[0].children[0].children[4].children[0].children[0];
-        thumbDown = elm.children[0].children[0].children[4].children[1].children[0];
-        
-        thumbUp.addEventListener("click", rateMsg);
-        thumbDown.addEventListener("click", rateMsg);
-       
-        
-        
-            
-    }
+    addToChat(snapshot.val());
 });
 
 //authenticate users Facebook
@@ -162,6 +141,75 @@ function signOutGithub(){
 //functions
 
 //-------------------------------------------
+//Sort messages
+
+function sortMessages(sortValue, limit){
+    
+    if(limit != "ALL" && isNaN(limit)){
+       limit = 1; 
+    }
+    
+    if(limit == "ALL"){
+        addAllSorted(sortValue);
+    }
+    else{
+        limitMessages(sortValue, limit);
+    }    
+}
+
+function limitMessages(orderBy,limit){
+    firebase.database().ref("messages/").orderByChild(orderBy).limitToFirst(limit).once("value", (snapshot)=>{
+            let count = 1;
+            snapshot.forEach((data)=>{
+                if(snapshot.length > limit){
+                    if(count >= minSee && count < maxSee){
+                       addToChat(data.val());
+                    }
+                }
+                else{
+                    addToChat(data.val());
+                }
+            });
+        });
+}
+function addAllSorted(orderBy){
+    firebase.database().ref("messages/").orderByChild(orderBy).once("value", (snapshot)=>{
+            snapshot.forEach((data)=>{
+                addToChat(data.val());
+            });
+        });
+}
+
+function seeMoreValue(){
+    seeMore.children[1].textContent = `${minSee} - ${maxSee}`;
+}
+function showSeeMore(){
+    seeMore.style.display = "block";
+}
+function addSeeMore(){
+    minSee +=10;
+    maxSee +=10;
+    seeMoreValue();
+}
+function subSeeMore(){
+    if(minSee > 1){
+        minSee -=10;
+        maxSee -=10;
+        seeMoreValue();
+    }
+}
+function showSortAmount(){
+    sortAmount.style.display = "block";
+}
+function hideSelect(){
+    sortBy.style.display = "none";
+}
+function showSelect(){
+    sortBy.style.display = "block";
+}
+
+//END
+//-------------------------------------------
 //Online
 
 function isOnline(user,status){
@@ -191,6 +239,53 @@ function isOnline(user,status){
 //END
 //-------------------------------------------
 //Messages
+
+//add messages to chat
+function addToChat(data){
+    
+    let message, isMine,rate, elm;
+    let myUser = JSON.parse(localStorage.getItem("logedinUser")).userName;
+    let thumbUp;
+    let thumbDown;
+    
+    //clear chat
+    chat.textContent = "";
+    
+    for(let msg in data){
+        message = data[msg];
+        rate = message.ratings;
+        if(message.sender == myUser){
+            isMine = true; 
+        }
+        else{
+            isMine = false;
+        }
+            
+        elm = newElement("div");
+        elm.innerHTML = newMessage(message.sender,message.userPic,message.content,message.ID,rate.posRate,rate.negRate,message.date,isMine);
+        
+        
+        chat.appendChild(elm);
+        
+        
+        if(chat.children.length === 0){
+            chat.appendChild(elm);    
+        }
+        else if(chat.children.length > 0){
+            chat.insertBefore(elm,chat.children[0]);
+        }
+        
+        thumbUp = elm.children[0].children[0].children[4].children[0].children[0];
+        thumbDown = elm.children[0].children[0].children[4].children[1].children[0];
+        
+        thumbUp.addEventListener("click", rateMsg);
+        thumbDown.addEventListener("click", rateMsg);
+       
+        
+        
+            
+    }
+}
 
 //add rating
 function rateMsg(e){
@@ -274,7 +369,6 @@ function addMessage(){
     let milseconds = d.getMilliseconds();
     let currDate = currentDate();
     let user = JSON.parse(localStorage.getItem("logedinUser"));
-    //let messageID = (`${user.userName}${month}${day}${minutes}${seconds}${milseconds}`);
     let messageID = `${year}${month}${day}${hours}${minutes}${seconds}${milseconds}`;
     
     if(chatInput.value !== ""){

@@ -1,6 +1,4 @@
 
-*/* my message color #81028E*/
-
 body, html{
     margin: 0;
     padding: 0;
@@ -115,6 +113,17 @@ main{
     position: absolute;
     border: none;
     font-family:'Raleway', sans-serif;
+    width: 75px;
+}
+
+#sortAmount{
+    display: none;
+    position: absolute;
+    width: 70px;
+    padding: 2px;
+    text-align: center;
+    text-decoration: none;
+    outline-color: #898989;
 }
 
 #seeMore{
